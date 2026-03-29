@@ -23,7 +23,7 @@ from PIL import Image, ImageTk, ImageFilter, ImageDraw
 # ══════════════════════════════════════════════
 SERVER_IP   = "66.179.137.254"
 SERVER_PORT = 8765
-MY_NAME     = "jahir"           # "ahir" o "fatilov"
+MY_NAME     = "fatima"           # "ahir" o "fatilov"
 
 # Rutas de fotos — déjalas en "" si no tienes aún
 PHOTO_ME    = "jahir.jpg"      # tu foto
@@ -31,7 +31,7 @@ PHOTO_HER   = "fati.jpg"   # foto de ella
 PHOTO_BG    = "juntos.jpg"    # foto de fondo difuminada
 # ══════════════════════════════════════════════
 
-OTHER_NAME = "fatima" if MY_NAME == "jahir" else "jahir"
+OTHER_NAME = "jahir" if MY_NAME == "fatima" else "fatima"
 WS_URL     = f"ws://{SERVER_IP}:{SERVER_PORT}"
 
 # ── Paleta ───────────────────────────────────

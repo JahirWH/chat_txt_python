@@ -12,7 +12,7 @@ PORT = 8765
 DB_FILE = "chat.db"
 
 # Nombres fijos de los dos usuarios
-VALID_USERS = {"Fatima", "jahir"}   # 
+VALID_USERS = {"fatima", "jahir"}   # 
 
 # ─────────────────────────────────────────
 #  BASE DE DATOS
