@@ -1,7 +1,7 @@
 """
-chat_gui.py  —  jahir & fatima ✦
+chat_gui.py  —  ahir & fatilov ✦
 pip install customtkinter websockets pillow
-pyinstaller --onefile --windowed --name "fatima" chat_gui.py
+pyinstaller --onefile --windowed --name "fatilov" chat_gui.py
 """
 
 import customtkinter as ctk
@@ -19,16 +19,16 @@ from datetime import datetime
 from PIL import Image, ImageTk, ImageFilter, ImageDraw
 
 # ══════════════════════════════════════════════
-#  VAriables de configuracion
+#  CONFIGURACIÓN  ← solo edita esto
 # ══════════════════════════════════════════════
 SERVER_IP   = "66.179.137.254"
 SERVER_PORT = 8765
 MY_NAME     = "fatima"           # "ahir" o "fatilov"
 
 # Rutas de fotos — déjalas en "" si no tienes aún
-PHOTO_ME    = "jahir.jpg"      # tu foto
-PHOTO_HER   = "fati.jpg"   # foto de ella
-PHOTO_BG    = "juntos.jpg"    # foto de fondo difuminada
+PHOTO_ME    = "foto_ahir.jpg"      # tu foto
+PHOTO_HER   = "foto_fatilov.jpg"   # foto de ella
+PHOTO_BG    = "foto_juntos.jpg"    # foto de fondo difuminada
 # ══════════════════════════════════════════════
 
 OTHER_NAME = "jahir" if MY_NAME == "fatima" else "fatima"
@@ -54,7 +54,7 @@ FONT_SMALL = ("Georgia", 10)
 FONT_NAME  = ("Georgia", 11, "bold")
 FONT_MATH  = ("Courier New", 9)
 
-WIN_W, WIN_H = 860, 640
+WIN_W, WIN_H = 760, 560
 SIDE_W       = 218
 AV_SIZE      = 38
 
@@ -110,7 +110,7 @@ def initials_img(letter, size, bg_hex, fg_hex):
     return ImageTk.PhotoImage(img)
 
 # ══════════════════════════════════════════════
-#  BURBUJA Anim
+#  BURBUJA
 # ══════════════════════════════════════════════
 class Bubble(tk.Frame):
     def __init__(self, parent, sender, content, timestamp, avatars, **kw):
@@ -170,7 +170,7 @@ class ChatApp(ctk.CTk):
         ctk.set_appearance_mode("dark")
         self.title("ahir & fatilov  ✦")
         self.geometry(f"{WIN_W}x{WIN_H}")
-        self.minsize(620, 440)
+        self.minsize(480, 380)
         self.configure(fg_color=BG_BASE)
 
         self._ws      = None
@@ -343,14 +343,12 @@ class ChatApp(ctk.CTk):
                 int(-1*(e.delta/120)), "units"))
 
         # Barra input
-        bar = tk.Frame(chat, bg=BG_SIDE, pady=10)
+        bar = tk.Frame(chat, bg=BG_SIDE, pady=8)
         bar.grid(row=1, column=0, columnspan=2, sticky="ew")
         tk.Frame(bar, bg=ROSE_DIM, height=1).pack(fill="x", pady=(0,8))
 
-        inp_row = tk.Frame(bar, bg=BG_SIDE)
-        inp_row.pack(fill="x", padx=12)
-
-        self._input = tk.Text(inp_row, height=2, bg=BG_INPUT,
+        # Input — ancho completo
+        self._input = tk.Text(bar, height=2, bg=BG_INPUT,
                                fg=TEXT_MUT, font=FONT_MSG,
                                insertbackground=ROSE,
                                relief="flat", padx=12, pady=7,
@@ -358,18 +356,24 @@ class ChatApp(ctk.CTk):
                                highlightbackground=ROSE_DIM,
                                highlightthickness=1)
         self._input.insert("1.0", "escribe algo bonito...")
-        self._input.pack(side="left", fill="both", expand=True)
+        self._input.pack(fill="x", padx=12)
         self._input.bind("<Return>", self._on_enter)
         self._input.bind("<FocusIn>",  self._clear_ph)
         self._input.bind("<FocusOut>", self._set_ph)
 
-        tk.Button(inp_row, text="✦ enviar",
+        # Fila del botón — debajo del input
+        btn_row = tk.Frame(bar, bg=BG_SIDE)
+        btn_row.pack(fill="x", padx=12, pady=(6,2))
+        tk.Label(btn_row, text="Enter para enviar  ·  Shift+Enter nueva línea",
+                 bg=BG_SIDE, fg=TEXT_MUT,
+                 font=("Courier New", 8)).pack(side="left")
+        tk.Button(btn_row, text="✦ enviar",
                   bg=ROSE_DIM, fg=ROSE,
                   activebackground=ROSE, activeforeground=BG_BASE,
-                  font=("Georgia",11,"bold"),
-                  relief="flat", padx=16, pady=8,
+                  font=("Georgia", 11, "bold"),
+                  relief="flat", padx=18, pady=5,
                   cursor="hand2", bd=0,
-                  command=self._send).pack(side="right", padx=(8,0))
+                  command=self._send).pack(side="right")
 
     def _clear_ph(self, e=None):
         if self._input.get("1.0","end").strip() == "escribe algo bonito...":
